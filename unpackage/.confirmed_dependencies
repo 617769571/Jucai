@@ -1,0 +1,78 @@
+{
+  "index.html": {
+    "resources": [
+      "html/home.html",
+      "html/personalCenter.html",
+      "/images/imgs/auth.png",
+      "/images/imgs/repayment.png",
+      "/images/imgs/loan.png",
+      "/images/imgs/renewal.png"
+    ],
+    "refer": [
+      "html/personalCenter.html",
+      "html/home.html",
+      "html/login.html",
+      "html/authentication.html",
+      "html/loan.html"
+    ]
+  },
+  "html/loading.html": {
+    "refer": [
+      "html/login.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "html/login.html": {
+    "refer": [
+      "html/register.html",
+      "html/forgetPassword.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "html/register.html": {
+    "refer": [
+      "html/login.html"
+    ],
+    "resources": []
+  },
+  "html/personalCenter.html": {
+    "refer": [
+      "html/notice.html",
+      "html/bankCard.html",
+      "html/loanRecord.html",
+      "html/help.html",
+      "html/setting.html"
+    ],
+    "resources": []
+  },
+  "html/notice.html": {
+    "refer": [
+      "html/noticeItem.html",
+      "html/noticeItem0.html",
+      "html/noticeItem1.html",
+      "html/noticeItem2.html"
+    ],
+    "resources": [
+      "js/base.js",
+      "js/util.js",
+      "js/mui.min.js",
+      "js/jquery-3.3.1.min.js"
+    ]
+  },
+  "html/help.html": {
+    "refer": [
+      "html/notice.html",
+      "html/helpItem.html"
+    ],
+    "resources": []
+  },
+  "html/setting.html": {
+    "refer": [
+      "html/editPassword.html",
+      "html/login.html"
+    ],
+    "resources": []
+  }
+}

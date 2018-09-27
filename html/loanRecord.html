@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/loanRecord.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">借款记录</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<div class="box1">
+			<div>
+				<div class="title fl">
+					订单号：<span class="order_no"></span>
+				</div>
+				<div class="repay_status fr"></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="box2">
+			<div>
+				<div class="title fl">应还金额</div>
+				<div class="repay_amount fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="item">
+				<div class="sub_item">
+					<div class="fl">贷款金额</div>
+					<div class="loan_amount fr"></div>
+					<div class="clear"></div>
+				</div>
+				<div class="sub_item">
+					<div class="fl">手续费</div>
+					<div class="brokerage fr"></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			
+			<div>
+				<div class="title fl">申请时间</div>
+				<div class="apply_time fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div>
+				<div class="title fl">放款时间</div>
+				<div class="loan_time fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="title">审核信息</div>
+			<div class="item">
+				<div class="sub_item">
+					<div class="fl">审核时间</div>
+					<div class="audit_time fr"></div>
+					<div class="clear"></div>
+				</div>
+				<div class="sub_item">
+					<div class="fl">审核状态</div>
+					<div class="audit_status fr"></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="repay_info">
+				<div class="title fl">还款时间</div>
+				<div class="repay_time fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div>
+				<div class="title fl">是否逾期</div>
+				<div class="is_overdue fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="title">展期信息</div>
+			<div class="item renewal_info">
+				<div class="sub_item">
+					<div class="fl">展期时间</div>
+					<div class="renewal_time fr"></div>
+					<div class="clear"></div>
+				</div>
+				<div class="sub_item">
+					<div class="fl">展期次数</div>
+					<div class="renewal_times fr"></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init(;
+			mui.plusReady(function() {
+				var userInfo = JSON.parse(plus.storage.getItem('userInfo'))
+				POST({
+					url: '/select/BorrowInfoBycustomerId',
+					data: { customerId: userInfo.id },
+					success: function(res){
+						if(res.code == 0){
+							if(res.data){
+								$('.order_no').text(res.data.orderNo || 0);
+								$('.repay_status').text(res.data.isRepay == 1 ? '已还款' : '未还款');
+								$('.apply_time').text(res.data.createTime || new Date());
+								$('.loan_time').text(res.data.loanTime || new Date());
+								$('.audit_time').text(res.data.reviewTime || new Date());
+								$('.audit_status').text(res.data.status == 1 ? '申请中' : res.data.status == 2 ? '审核成功' : res.data.status == 3 ? '审核失败' : '申请中');
+								if(res.data.isRepay == 0){
+									$('.repay_info').hide();
+								}else{
+									$('.repay_time').text(res.data.repayTime || new Date());
+								}
+								$('.is_overdue').text(res.data.isRepay == 0 ? '已逾期' : '未逾期');
+								if(res.data.isExtensionStr == '是'){
+									$('.renewal_time').text(res.data.extensionTime || new Date());
+									$('.renewal_times').text(res.data.extensionCount || 1);
+								}else{
+									$('.renewal_title').hide();
+									$('.renewal_info').hide();
+								}
+							}
+						}
+					}
+				})
+			});
+		})();
+	</script>
+</body>
+</html>

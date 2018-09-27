@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/loan.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">借款</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<div class="amount fl" data-index="0">800</div>
+		<div class="amount fl" data-index="1">1000</div>
+		<div class="amount fl" data-index="2">1200</div>
+		<div class="amount fl" data-index="3">1500</div>
+		<div class="amount fl" data-index="4">2000</div>
+		<div class="submit">确定</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var idx = -1;
+		(function() {
+			mui.init({
+				keyEventBind: {
+					backbutton: false  //关闭back按键监听
+				}
+			});
+			mui.plusReady(function() {
+				mui('body').on('tap', '.amount', function() {
+					for (var i in $('.amount')) {
+						$(.amount).eq(i).removeClass('amount_selected');
+					}
+					$(this).addClass('amount_selected');
+					idx = this.getAttribute('data-index');
+				});
+				mui('body').on('tap', '.submit', function() {
+					if(idx == -1){
+						mui.alert('请选择金额', '温馨提示', function(){})
+						return;
+					}
+					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+					POST({
+						url: '/appBorrowInfo',
+						data: {
+							customerId: userInfo.id,
+							borrowAmount: $('.amount').eq(idx).text()
+						},
+						success: function(res){
+							if(res.code == 0){
+								mui.back();
+							}
+						}
+					})
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+.amount{
+	margin: 20px 0 0 5%;
+	padding: 10px 0;
+	border: 1px solid #859FFE;
+	border-radius: 5px;
+	background-color: #fff;
+	width: 26%;
+	line-height: 1.5;
+	text-align: center;
+	color: #859FFE;
+	font-size: 12px;
+}
+.amount_selected{
+	background-color: #859FFE;
+	color: #fff;
+}
+.submit{
+	position: fixed;
+	left: 10%;
+	bottom: 30px;
+	border-radius: 5px;
+	background-color: #859FFE;
+	width: 80%;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	font-size: 14px;
+}

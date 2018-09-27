@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/notice.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">活动公告中心</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<!--菜单-->
+		<div id="menu">
+			<div class="menu_item" data-index="0">
+				<div class="item_title fl">· 有关还贷 展期续贷 提额 授信对象得公告提示</div>
+				<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+				<div class="clear"></div>
+			</div>
+			<div class="menu_item" data-index="1">
+				<div class="item_title fl">· 逾期处罚条例</div>
+				<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+				<div class="clear"></div>
+			</div>
+			<div class="menu_item" data-index="2">
+				<div class="item_title fl">· <span id="global_title"></span>与第三方催收平台达成战略合作</div>
+				<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+				var global = JSON.parse(plus.storage.getItem('global'));
+				$('#global_title').text(global.title);
+				mui('body').on('tap', '.menu_item', function() {
+					var idx = this.getAttribute('data-index');
+					mui.openWindow({
+						url: 'noticeItem.html',
+						id: 'noticeItem',
+						extras: {
+							idx: idx
+						}
+					});
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

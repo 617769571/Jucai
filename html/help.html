@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/help.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">帮助中心</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<div id="menu">
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="0">
+					<div class="item_title fl">1.如何申请借款</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>1) 上各大应用市场，搜索“<span class="global_title"></span>”下载注册申请；</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="1">
+					<div class="item_title fl">2.还款方式</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>1) 使用本人绑定银行卡还款；</div>
+					<div>2) 使用本人名下的其他银行卡还款；</div>
+					<div>3) 支付宝指定还款账户；</div>
+					<div>4) 微信指定还款账户。</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="2">
+					<div class="item_title fl">3.申请条件</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>年满18-30周岁，非学生，本人实名制手机号码且连续使用时间满6个月以上即可尝试申请。</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="3">
+					<div class="item_title fl">4.审核不通过原因</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div><span class="global_title"></span>贷款系统是通过大数据分析自动审核，由于您的综合评分不足，因此借款申请暂未获得批准。如个人资料无重大变化，不建议短期内再次申请。</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="4">
+					<div class="item_title fl">5.关于手机验证码</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>可能被手机安全软件拦截或网络信号问题，需要关闭安全软件或重新启动手机再尝试，如仍有问题，请直接联系客服。</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="5">
+					<div class="item_title fl">6.姓名或身份证填写有误，怎么办？</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>为了您的账户信息安全，暂时不可以修改，因为姓名和身份证是你唯一的标识，建议联系客服处理</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="6">
+					<div class="item_title fl">7.未按时还款会有什么后果？</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>我们会采取合法催收措施，同时将收取逾期费、滞纳金等，如经多次友好催收协商未果，将提交法院诉讼，将欠款人拉入老赖黑名单。</div>
+				</div>
+			</div>
+			<div class="menu_item">
+				<div class="menu_item_title" data-index="7">
+					<div class="item_title fl">8.到期无力偿还本金，如何续借？</div>
+					<div class="item_goicon item_goicon_right fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_item_detail">
+					<div>点击首页“续借”按钮，按指示要求，提交相关续借费用，点击确认即可，系统会自动确认给您续借一期。</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var show = {};
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+				var global = JSON.parse(plus.storage.getItem('global'));
+				$('.global_title').text(global.title);
+				mui('body').on('tap', '.menu_item_title', function() {
+					var idx = this.getAttribute('data-index');
+					if(show[idx]){
+						$('.menu_item_detail').eq(idx).hide();
+						$('.item_goicon').eq(idx).addClass('item_goicon_right').removeClass('item_goicon_down');
+						$('.item_goicon').eq(idx).find('img').attr('src', '../images/imgs/right.png');
+						show[idx] = 0;
+					}else{
+						$('.menu_item_detail').eq(idx).show();
+						$('.item_goicon').eq(idx).addClass('item_goicon_down').removeClass('item_goicon_right');
+						$('.item_goicon').eq(idx).find('img').attr('src', '../images/imgs/down.png');
+						show[idx] = 1;
+					}
+					
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet"/>
+    	<link href="../css/base.css" rel="stylesheet"/>
+    	<link href="../css/editPassword.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+		<div id="container" class="mui-content">
+			<div class="item">
+				<div>联系电话</div>
+				<input type="number" id="telephone" placeholder="请输入手机号码"/>
+			</div>
+			<div class="item">
+				<div>我要反馈</div>
+				<textarea type="text" id="feedback" placeholder="请描述您的问题"></textarea>
+			</div>
+			<div id="submit">提交</div>
+		</div>
+		
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/util.js"></script>
+		<script src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			(function() {
+				mui.init();
+				mui.plusReady(function() {
+					mui('body').on('tap', '#submit', function() {
+						if(!$('#telephone').val() || !REG.CellPhone($('#telephone').val())){
+							mui.alert('请输入正确格式的手机号码', '温馨提示', function() {});
+							return;
+						}
+						if(!$('#feedback').val()){
+							mui.alert('请描述您的问题', '温馨提示', function() {});
+							return;
+						}
+						POST({ 
+							url: "",
+							data: {
+								'': $('#telephone').val(),
+								'': $('#feedback').val()
+							},
+							success: function(res){
+								mui.alert(res.data || '提交成功', '温馨提示', function() {
+									$('#telephone').val('');
+									$('#feedback').val('');
+								});
+							}
+						});
+					})
+				});
+			})();
+		</script>
+	</body>
+</html>

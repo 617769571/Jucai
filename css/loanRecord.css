@@ -1,0 +1,26 @@
+#container{
+	background-color: #fff;
+}
+.title{
+	font-weight: bold;
+}
+.box1{
+	padding: 20px;
+	border-bottom: 1px solid #eee;
+	line-height: 1;
+	font-size: 14px;
+}
+.box2{
+	font-size: 12px;
+}
+.box2 > div{
+	padding: 10px 20px;
+	line-height: 1;
+}
+.box2 > .item{
+	padding: 0 20px;
+	background-color: #f8f8f8;
+}
+.box2 > .item > .sub_item{
+	padding: 10px 0 10px 20px ;
+}

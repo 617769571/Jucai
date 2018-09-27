@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav"><!--style="display: none;"-->
+		<h1 class="mui-title">首页</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<!--轮播图片-->
+		<div id="slider" class="mui-slider">
+		  <div class="mui-slider-group">
+		    <!-- 第一张 -->
+		     <div class="mui-slider-item">
+		      <a href="#">
+		        <img src="./images/home_head.png">
+		      </a>
+		    </div>
+		  </div>
+		</div>
+		
+		<!--操作菜单栏-->
+		<div id="operation">
+			<div id="loan" class="opt_item" data-index="0">
+				<div class="opt_item_img">
+					<img src="./images/imgs/loan.png"/>
+				</div>
+				<div class="opt_item_txt">借款</div>
+			</div>
+			<div id="repayment" class="opt_item" data-index="1">
+				<div class="opt_item_img">
+					<img src="./images/imgs/repayment.png"/>
+				</div>
+				<div class="opt_item_txt">还款</div>
+			</div>
+			<div id="renewal" class="opt_item" data-index="2">
+				<div class="opt_item_img">
+					<img src="./images/imgs/renewal.png"/>
+				</div>
+				<div class="opt_item_txt">续借</div>
+			</div>
+			<div id="authentication" class="opt_item" data-index="3">
+				<div class="opt_item_img">
+					<img src="./images/imgs/auth.png"/>
+				</div>
+				<div class="opt_item_txt">认证</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!--数据显示-->
+		<div id="data_box">
+			<div class="data_item fl">
+				<div>当前借款金额</div>
+				<div id="amount">0</div>
+			</div>
+			<div class="data_item fr">
+				<div>到期日</div>
+				<div id="due_date">无</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!--广告-->
+		<div class="advertise">
+			<img src="./images/home_one.png"/>
+		</div>
+		<div class="advertise">
+			<img src="./images/home_two.png"/>
+		</div>
+	</div>
+	<!--<div id="loading">
+		<img src="images/loading.png"/>
+	</div>-->
+	
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/util.js"></script>
+	<script src="js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init({
+				keyEventBind: {
+					backbutton: false  //关闭back按键监听
+				}
+			});
+			mui.plusReady(function() {
+//				plus.storage.clear();
+				// 创建子webview窗口 并初始化
+				var aniShow = {};
+				util.initSubpage(aniShow);
+				var nview = plus.nativeObj.View.getViewById('tabBar'),
+					activePage = plus.webview.currentWebview(),
+					targetPage,
+					subpages = util.options.subpages,
+					pageW = window.innerWidth,
+					currIndex = 0;
+					
+				/**
+				 * 根据判断view控件点击位置判断切换的tab
+				 */
+				nview.addEventListener('click', function(e) {
+					var clientX = e.clientX;
+					if(clientX > 0 && clientX <= parseInt(pageW * 0.5)) {
+						currIndex = 0;
+					} else if(clientX > parseInt(pageW * 0.5) && clientX <= parseInt(pageW * 1)) {
+						currIndex = 1;
+					}
+					// 匹配对应tab窗口	
+					if(currIndex > 0) {
+						targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+					} else {
+						targetPage = plus.webview.currentWebview();
+					}
+
+					if(targetPage == activePage) {
+						return;
+					}
+
+					///底部选项卡切换
+					util.toggleNview(currIndex);
+					// 子页面切换
+					util.changeSubpage(targetPage, activePage, aniShow);
+					//更新当前活跃的页面
+					activePage = targetPage;
+				});
+				nview.hide();
+				var timer = setTimeout(function(){
+					clearTimeout(timer);
+					// 判断是否已登陆
+					if(!plus.storage.getItem('userInfo')){
+						mui.openWindow('/html/login.html', 'login');
+						return;
+					}else{
+//						document.getElementById('header').style.display = 'block';
+//						document.getElementById('container').style.display = 'block';
+//						document.getElementById('loading').style.display = 'none';
+						nview.show();
+						initData();
+					}
+				}, 3000);
+			});
+		})();
+		
+		function initData(){
+			var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+			// 操作
+			mui('body').on('tap', '.opt_item', function() {
+				var idx = this.getAttribute('data-index');
+				if(idx == 1){
+					mui.alert('请联系客服还款！', '温馨提示', function() {});
+				}else if(idx == 3){
+					mui.openWindow('html/authentication.html')
+				}else{
+					POST({
+						url: '/canBorrow',
+						data: { customerId: userInfo.id || 0 },
+						success: function(res){
+							if(res.code == 0){
+								mui.openWindow('html/loan.html')
+							}
+						}
+					})
+				}
+			});
+			
+			// 获取首页title信息
+			var global = JSON.parse(plus.storage.getItem('global'));
+			if(!global){
+				POST({
+					url: '/selectHome',
+					data: { id: 1 },
+					success: function(res){
+						$('.mui-title').html(res.data.title)
+						plus.storage.setItem(global, JSON.stringify({
+							title: res.data.title
+						}));
+						var _page = plus.webview.getWebviewById('personalCenter');
+						if(_page){
+							_page.reload(true);	
+						}
+					}
+				});
+			}
+			
+			// 获取首页数据
+			if(userInfo.id){
+				POST({
+					url: '/selectBorrow',
+					data: { customerId: userInfo.id },
+					success: function(res){
+						$('#amount').html(res.data.borrowAmount);
+						$('#due_date').html(res.data.date);
+						var global = JSON.parse(plus.storage.getItem('global')) || {};
+						plus.storage.setItem('global', JSON.stringify(Object.assign(global, {
+							amount: res.data.borrowAmount,
+							dueDate: res.data.date
+						})));
+					}
+				});
+			}
+		}
+	</script>
+</body>
+</html>

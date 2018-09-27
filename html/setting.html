@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/setting.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">设置</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<!--菜单-->
+		<div id="menu">
+			<div class="menu_item" data-index="0">
+				<div class="item_title fl">手机号</div>
+				<div class="telephone fr"></div>
+				<div class="clear"></div>
+			</div>
+			<div class="menu_item" data-index="1">
+				<div class="item_title fl">修改密码</div>
+				<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+				<div class="clear"></div>
+			</div>
+			<div class="menu_item" data-index="2">
+				<div class="item_title fl">问题反馈</div>
+				<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		
+		<!--退出登录-->
+		<div class="logout_btn">退出登录</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+				let userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				$('.telephone').text(userInfo.username);
+				
+				mui('body').on('tap', '.menu_item', function() {
+					var idx = this.getAttribute('data-index');
+					var href = '', id = '';
+					if(idx == 1){
+						href = 'editPassword.html';
+						id = 'editPassword';
+					}else if(idx == 2){
+						href = 'feedback.html';
+						id = 'feedback';
+					}
+					mui.openWindow(href, id);
+				});
+				
+				mui('body').on('tap', '.logout_btn', function() {
+					plus.storage.clear();
+					mui.openWindow('login.html', 'login')
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

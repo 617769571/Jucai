@@ -1,0 +1,28 @@
+.card{
+	margin: 20px auto;
+	border: 1px solid #859FFE;
+	border-radius: 10px;
+	background-color: #fff;
+	width: 90%;
+	height: 150px;
+	color: #859FFE;
+}
+.card_no{
+	padding: 20px 20px 0;
+	font-size: 20px;
+	font-weight: bolder;
+}
+.card_name{
+	padding: 0 20px;
+	margin-top: 10px;
+	font-size: 14px;
+	opacity: .5;
+}
+.card_status{
+	margin-top: 35px;
+	border-top: 1px solid #eee;
+}
+.card_active, .card_del{
+	padding: 10px 20px;
+	font-size: 12px;
+}

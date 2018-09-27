@@ -1,0 +1,49 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#header{
+	background-color: #859FFE; // 主题色
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	height: 52px;
+	line-height: 52px;
+	color: #fff;
+}
+#header .mui-title{
+	line-height: 52px;
+}
+#header .mui-title, #header a{
+	color: #fff;
+}
+.mui-bar .mui-pull-left .mui-icon {
+	padding-right: 5px;
+	font-size: 28px;
+}
+.mui-bar .mui-btn {
+	font-weight: normal;
+	font-size: 17px;
+}
+.mui-bar .mui-btn-link {
+	top: 1px;
+}
+
+.mui-content img{
+	width: 100%;
+}
+#container{
+	padding-top: 52px;
+}
+
+.fl{ float: left; }
+.fr{ float: right; }
+.clear{ clear: both; }
+
+.hidden{
+	display: none;
+}
+
+input{
+	outline: none;
+	border: none;
+}

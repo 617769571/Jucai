@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/personalCenter.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<h1 class="mui-title">个人中心</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<!--banner图片-->
+		<div id="banner" class="mui-slider">
+		  <img src="../images/fragment_personal_head.jpg">
+		  <div>
+		  	<div class="info_block">
+		  		<div class="fl">等级：<span id="level">LV1</span></div>
+		  		<div class="fr">借款金额：<span id="loan_amount">0</span>元</div>
+		  		<div class="clear"></div>
+		  	</div>
+		  	<div class="info_block">
+		  		<div class="fl">手机号：<span id="telephone">133****3333</span></div>
+		  		<div class="fr">到期日：<span id="due_date">无</span></div>
+		  		<div class="clear"></div>
+		  	</div>
+		  </div>
+		</div>
+		
+		<!--菜单-->
+		<div id="menu">
+			<div class="menu_block">
+				<div class="menu_block_item" data-index="0">
+					<div class="item_icon fl"><img src="../images/imgs/activity_center_lyj.png"/></div>
+					<div class="item_title fl">活动公告中心</div>
+					<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_block_item" data-index="1">
+					<div class="item_icon fl"><img src="../images/imgs/my_bank_card.png"/></div>
+					<div class="item_title fl">我的银行卡</div>
+					<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_block_item" data-index="2">
+					<div class="item_icon fl"><img src="../images/imgs/loan_record_lyj.png"/></div>
+					<div class="item_title fl">借款记录</div>
+					<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="menu_block">
+				<div class="menu_block_item" data-index="3">
+					<div class="item_icon fl"><img src="../images/imgs/help_center_lyj.png"/></div>
+					<div class="item_title fl">帮助中心</div>
+					<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+				<div class="menu_block_item" data-index="4">
+					<div class="item_icon fl"><img src="../images/imgs/personal_set_lyj.png"/></div>
+					<div class="item_title fl">个人设置</div>
+					<div class="item_goicon fr"><img src="../images/imgs/right.png"/></div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init({
+				keyEventBind: {
+					backbutton: false  //关闭back按键监听
+				}
+			});
+			mui.plusReady(function() {
+				var global = JSON.parse(plus.storage.getItem('global'));
+				if(!global){
+					POST({
+						url: '/selectHome',
+						data: { id: 1 },
+						success: function(res){
+							plus.storage.setItem('global', JSON.stringify(res.data));
+							global = res.data
+						}
+					});
+				}
+				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				if(userInfo.id){
+					POST({
+						url: '/selectBorrow',
+						data: { customerId: userInfo.id },
+						success: function(res){
+							plus.storage.setItem('global', JSON.stringify(Object.assign(global, {
+								amount: res.data.borrowAmount,
+								dueDate: res.data.date
+							})));
+						}
+					});
+				}
+				$('#loan_amount').text(global.amount);
+				$('#due_date').text(global.dueDate);
+				$('#telephone').text(userInfo.username);
+				
+				mui('body').on('tap', '.menu_block_item', function() {
+					var idx = this.getAttribute('data-index');
+					var href = '', id = '';
+					if(idx == 0){
+						href = 'notice.html';
+						id = 'notice';
+					}else if(idx == 1){
+						if(userInfo.id){
+							href = 'bankCard.html';
+							id = 'bankCard';
+						}else{
+							mui.toast('请先完成实名认证');
+						}
+					}else if(idx == 2){
+						href = 'loanRecord.html';
+						id = 'loanRecord';
+					}else if(idx == 3){
+						href = 'help.html';
+						id = 'help';
+					}else if(idx == 4){
+						href = 'setting.html';
+						id = 'setting';
+					}
+					mui.openWindow(href, id);
+				});
+			});
+		})();
+	</script>
+</body>
+</html>

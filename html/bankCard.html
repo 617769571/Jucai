@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/bankCard.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">我的银行卡</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<div class="card">
+			<div class="card_no">62170200004053338</div>
+			<div class="card_name">工商银行</div>
+			<!--<div class="card_status">
+				<div class="card_active fl">可用</div>
+				<div class="card_del fr">已删除</div>
+			</div>-->
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				POST({
+					url: '/selectBankCard/ByCustomerId',
+					data: { customerId: userInfo.id},
+					success: function(res){
+						if(res.code == 0){
+							$('.card_no').text(res.data.bankNo);
+							$('.card_name').text(res.data.bankName);
+//							$('.card_active').text(res.data.status == 1 ? '可用' : '冻结');
+//							$('.card_del').text(res.data.isDel == 1 ? '未删除' : '已删除'));
+						}
+					}
+				})
+			});
+		})();
+	</script>
+</body>
+</html>

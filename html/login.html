@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet"/>
+    	<link href="../css/base.css" rel="stylesheet"/>
+    	<link href="../css/login.css" rel="stylesheet"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="banner">每周口袋</div>
+			<div class="float_box">
+				<div class="item">
+					<div class="fl">
+						<img src="../images/imgs/phone.png"/>
+					</div>
+					<input type="tel" id="telephone" placeholder="请输入手机号"/>
+				</div>
+				<div class="item">
+					<div class="fl">
+						<img src="../images/imgs/password.png"/>
+					</div>
+					<input type="password" id="password" placeholder="请输入密码"/>
+				</div>
+				<div id="submit">登录</div>
+				<div class="other_opt">
+					<div id="register" class="fl">注册</div>
+					<div id="forgetPwd" class="fr">忘记密码</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/util.js"></script>
+		<script src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			(function() {
+				mui.init({
+					keyEventBind: {
+						backbutton: false  //关闭back按键监听
+					}
+				});
+				mui.plusReady(function() {
+					// 登录
+					mui('body').on('tap', '#submit', function() {
+						if(!$('#telephone').val() || !REG.CellPhone($('#telephone').val())){
+							mui.alert('请输入正确格式的手机号', '温馨提示', function() {});
+							return;
+						}
+						if(!$('#password').val()){
+							mui.alert('请输入密码', '温馨提示', function() {});
+							return;
+						}
+						POST({ 
+							url: "/signUp",
+							data: {
+								username: $('#telephone').val(),
+								password: $('#password').val()
+							},
+							success: function(res){
+								plus.storage.setItem('userInfo', JSON.stringify({
+									id: res.data.customerId || 0,
+									username: $('#telephone').val()
+								}))
+								plus.webview.getLaunchWebview().show();
+								plus.webview.getLaunchWebview().reload();
+							}
+						});
+					});
+					// 跳转注册
+					mui('body').on('tap', '#register', function() {
+						mui.openWindow('register.html', 'register');
+					});
+					// 跳转忘记密码
+					mui('body').on('tap', '#forgetPwd', function() {
+						mui.openWindow('forgetPassword.html', 'forgetPassword');
+					});
+				});
+			})();
+		</script>
+	</body>
+</html>

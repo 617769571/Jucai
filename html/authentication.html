@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/authentication.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">认证</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+		<!--进度-->
+		<div class="progress">
+			<div class="progress_item fl">
+				<img id="progress_item1" src="../images/imgs/1no.png"/>
+				<div>身份认证</div>
+			</div>
+			<div class="progress_item fl">
+				<img id="progress_item2" src="../images/imgs/2no.png"/>
+				<div>个人信息</div>
+			</div>
+			<div class="progress_item fl">
+				<img id="progress_item3" src="../images/imgs/3no.png"/>
+				<div>银行认证</div>
+			</div>
+			<div class="progress_item fl">
+				<img id="progress_item4" src="../images/imgs/4no.png"/>
+				<div>手机认证</div>
+			</div>
+			<div class="progress_item fl">
+				<img id="progress_item5" src="../images/imgs/5no.png"/>
+				<div>芝麻认证</div>
+			</div>
+			<div class="progress_item fl">
+				<img id="progress_item6" src="../images/imgs/6no.png"/>
+				<div>淘宝认证</div>
+			</div>
+		</div>
+		
+		<!--表单-->
+		<!--身份认证-->
+		<div class="form1">
+			<div class="form_info">
+				<input type="text" placeholder="请输入真实姓名" class="customerName"/>
+				<input type="text" placeholder="请输入身份证号" class="idCard"/>
+			</div>
+			<div class="form_photos">
+				<div class="title">身份证识别</div>
+				<div class="photo fl" data-index="0">
+					<img class="photo0" src="../images/imgs/idcard_face.png" alt="" />
+					<div class="name">人像面</div>
+				</div>
+				<div class="photo fl" data-index="1">
+					<img class="photo1" src="../images/imgs/idcard_back.png" alt="" />
+					<div class="name">国徽面</div>
+				</div>
+				<div class="clear"></div>
+				<div class="photo" data-index="2">
+					<img class="photo2" src="../images/imgs/idcard_face.png" alt="" />
+					<div class="name">手持身份证面</div>
+				</div>
+				<!--<input id="photo" type="file" accept="image/jpeg,image/png" value="" />-->
+			</div>
+			<div class="form_tip">
+				注：所填信息必须真实有效，一经提交无法修改
+			</div>
+			<div class="form_btn form1_btn">提交</div>
+		</div>
+		<!--个人信息-->
+		<div class="form2 hidden">
+			<div class="form_info">
+				<div class="form_item">
+					性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+					<input type="radio" name="sex" value="1" checked/><label>男</label>
+					<input type="radio" name="sex" value="2"/><label>女</label>
+				</div>
+				<div class="form_item">
+					年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：<input type="number" placeholder="请输入年龄" class="age"/>
+				</div>
+				<div class="form_item">
+					微&nbsp;&nbsp;信&nbsp;&nbsp;号：<input type="text" placeholder="请输入微信号" class="wechat"/>
+				</div>
+				<div class="form_item">
+					现居城市：<input type="text" placeholder="请输入现居城市" class="nowCity"/>
+				</div>
+				<div class="form_item">
+					详细地址：<input type="text" placeholder="请输入详细地址" class="detailAddress"/>
+				</div>
+				<div class="form_item">
+					单位名称：<input type="text" placeholder="请输入单位名称" class="companyName"/>
+				</div>
+				<div class="form_item">
+					单位电话：<input type="number" placeholder="请输入单位电话" class="companyPhone"/>
+				</div>
+				<div class="form_item">
+					单位地址：<input type="text" placeholder="请输入单位地址" class="companyAddress"/>
+				</div>
+			</div>
+			<div class="form_tip">
+				注：所填信息必须真实有效，一经提交无法修改
+			</div>
+			<div class="form_btn form2_btn">提交</div>
+		</div>
+		<!--银行认证-->
+		<div class="form3 hidden">
+			<div class="form_info">
+				<div class="form_item">
+					银行卡号：<input type="number" placeholder="请输入银行卡号" class="bankNo"/>
+				</div>
+				<div class="form_item hidden bank_type_item">
+					类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：<span class="bankType"></span>
+				</div>
+				<div class="form_item hidden bank_name_item">
+					开&nbsp;&nbsp;户&nbsp;&nbsp;行：<span class="bankName"></span>
+				</div>
+				<div class="form_item">
+					预留电话：<input type="number" placeholder="请输入预留电话" class="reservePhone"/>
+				</div>
+			</div>
+			<div class="form_tip">
+				注：所填信息必须真实有效，一经提交无法修改
+			</div>
+			<div class="form_btn form3_btn">提交</div>
+		</div>
+		<!--手机认证-->
+		<div class="form4 hidden">
+			<div class="form_info">
+				<input type="number" class="telephone"/>
+				<input type="password" placeholder="请输入服务密码" class="servicePassword"/>
+				<div class="form_item">
+					<input type="checkbox" class="protocol" checked="checked" />同意《用户使用协议》
+				</div>
+			</div>
+			<div class="form_tip">
+				温馨提示：稍后您可能会收到多条运营商的提示短信，属于正常现象。
+			</div>
+			<div class="form_btn form4_btn">确认</div>
+		</div>
+		<!--芝麻认证-->
+		<div class="form5 hidden">
+			<div class="form_info">
+				<input type="number" class="telephone"/>
+				<input type="password" placeholder="请输入服务密码" class="servicePassword"/>
+				<div class="form_item">
+					<input type="checkbox" class="protocol" checked="checked" />同意《用户使用协议》
+				</div>
+			</div>
+			<div class="form_tip">
+				温馨提示：稍后您可能会收到多条运营商的提示短信，属于正常现象。
+			</div>
+			<div class="form_btn form5_btn">确认</div>
+		</div>
+		<!--淘宝认证-->
+		<div class="form6 hidden">
+			<div class="form_info">
+				<input type="number" class="telephone"/>
+				<input type="password" placeholder="请输入服务密码" class="servicePassword"/>
+				<div class="form_item">
+					<input type="checkbox" class="protocol" checked="checked" />同意《用户使用协议》
+				</div>
+			</div>
+			<div class="form_tip">
+				温馨提示：稍后您可能会收到多条运营商的提示短信，属于正常现象。
+			</div>
+			<div class="form_btn form6_btn">确认</div>
+		</div>
+	</div>
+	
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/bankCardReg.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var photoIdx = -1;
+        var contacts = [];
+		var form1Photos = ['', '', ''];
+		var protocol = true;
+		var form = {};
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+				// 上传图片点击事件
+				mui('body').on('tap', '.photo', function() {
+					var _that = this;
+					photoIdx = this.getAttribute('data-index');
+					
+                    plus.nativeUI.actionSheet({cancel:"取消", buttons:[ 
+                        {title:"拍照"}, 
+                        {title:"从相册中选择"} 
+                    ]}, function(e){
+                        switch(e.index){ 
+                            case 1: appendByCamera(); break; 
+                            case 2: appendByGallery(); break;
+                        } 
+                    });
+				});
+				// 银行卡号值改变事件
+				mui('body').on('change', '.bankNo', function(e){
+					if($('.bankNo').val()){
+						let bankInfo = bankCardAttribution($('.bankNo').val());
+						if(bankInfo){
+							$('.bankName').text(bankInfo.bankName);
+							$('.bankType').text(bankInfo.cardTypeName);
+							$('.bank_name_item').removeClass('hidden');
+							$('.bank_type_item').removeClass('hidden');
+						}else{
+							mui.alert('请输入正确的银行卡号', function(){
+								$('.bankNo').val('');
+								$('.bankName').text('');
+								$('.bankType').text('');
+								$('.bank_name_item').addClass('hidden');
+								$('.bank_type_item').addClass('hidden');
+							})
+						}
+					}else{
+						$('.bankName').text('');
+						$('.bankType').text('');
+						$('.bank_name_item').addClass('hidden');
+						$('.bank_type_item').addClass('hidden');
+					}
+				});
+
+				// 身份认证
+				mui('body').on('tap', '.form1_btn', function() {
+					if(!$('.customerName').val() || !REG.RealName($('.customerName').val())){
+						mui.alert('请输入真实姓名');
+						return;
+					}
+					if(!$('.idCard').val() || !REG.IDCard($('.idCard').val())){
+						mui.alert('请输入真实的身份证号');
+						return;
+					}
+					if(!form1Photos[0] || !form1Photos[1] || !form1Photos[2]){
+						mui.alert('请上传所有要求上传的身份证照片');
+						return;
+					}
+					$('#progress_item1').attr('src', '../images/imgs/1yes.png');
+					$('.form1').addClass('hidden');
+					$('.form2').removeClass('hidden');
+					Object.assign(form, {
+						customerName: $('.customerName').val(),
+						idCard: $('.idCard').val(),
+						cardFontImg: form1Photos[0],
+						cardBackImg: form1Photos[1],
+						cardHand: form1Photos[2],
+						isVerified: 1
+					});
+				});
+				// 个人信息
+				mui('body').on('tap', '.form2_btn', function() {
+					if(!$('.age').val() || $('.age').val() < 0 || $('.age').val() > 200){
+						mui.alert('请输入正确格式的年龄');
+						return;
+					}
+					if(!$('.wechat').val()){
+						mui.alert('请输入微信号');
+						return;
+					}
+					if(!$('.nowCity').val()){
+						mui.alert('请输入现居城市');
+						return;
+					}
+					if(!$('.detailAddress').val()){
+						mui.alert('请输入详细居住地址');
+						return;
+					}
+					if(!$('.companyName').val()){
+						mui.alert('请输入单位名称');
+						return;
+					}
+					if(!$('.companyPhone').val()){
+						mui.alert('请输入单位电话');
+						return;
+					}
+					if(!$('.companyAddress').val()){
+						mui.alert('请输入单位地址');
+						return;
+					}
+					$('#progress_item2').attr('src', '../images/imgs/2yes.png');
+					$('.form2').addClass('hidden');
+					$('.form3').removeClass('hidden');
+					Object.assign(form, {
+						sex: $('.sex').val(),
+						age: $('.age').val(),
+						wechat: $('.wechat').val(),
+						nowCity: $('.nowCity').val(),
+						detailAddress: $('.detailAddress').val(),
+						companyName: $('.companyName').val(),
+						companyPhone: $('.companyPhone').val(),
+						companyAddress: $('.companyAddress').val()
+					})
+				});
+				// 银行认证
+				mui('body').on('tap', '.form3_btn', function() {
+					if(!$('.bankNo').val()){
+						mui.alert('请输入银行卡号');
+						return;
+					}
+					if(!$('.reservePhone').val() || !REG.CellPhone($('.reservePhone').val())){
+						mui.alert('请输入正确格式的预留电话');
+						return;
+					}
+					$('#progress_item3').attr('src', '../images/imgs/3yes.png');
+					$('.form3').addClass('hidden');
+					$('.form4').removeClass('hidden');
+					Object.assign(form, {
+						bankNo: $('.bankNo').val(),
+						bankName: $('.bankName').val(),
+						reservePhone: $('.reservePhone').val(),
+						isBank: 1
+					})
+					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+					$('.telephone').val(userInfo.username);
+//					mui.openWindow('https://credit.baiqishi.com/clclient/mno/login?partnerId=lyjc&source=mno&backUrl=index.html&skip=false&name=' + form.customerName + '&certNo=' + form.idCard + '&mobile=' + userInfo.username)
+				});
+				// 手机认证
+				mui('body').on('tap', '.form4_btn', function() {
+					getAddressList(function(){
+						if(!$('.telephone').val() || !REG.CellPhone($('.telephone').val())){
+							mui.alert('请输入正确格式的电话');
+							return;
+						}
+						if(!$('.servicePassword').val()){
+							mui.alert('请输入服务密码');
+							return;
+						}
+						$('#progress_item4').attr('src', '../images/imgs/4yes.png');
+						$('.form4').addClass('hidden');
+						$('.form5').removeClass('hidden');
+						Object.assign(form, {
+							telephone: $('.telephone').val(),
+							servicePassword: $('.servicePassword').val(),
+							isPhone: 0
+						})
+						submitForm();
+					});
+					
+//					mui.openWindow('https://credit.baiqishi.com/clclient/zm/login?partnerId=lyjc&skip=false&name=' + form.customerName + '&certNo=' + form.idCard + '&mobile=' + form.telephone)
+					
+                    // 1、授信
+//                  POST({
+//                  	url: 'https://credit.baiqishi.com/clweb/api/mno/login',
+//                  	data: {
+//                  		partnerId: 'lyjc',
+//                  		name: form.customerName,
+//                  		certNo: form.idCard,
+//                  		mobile: $('.telephone').val(),
+//                  		pwd: $('.servicePassword').val()
+//                  	},
+//                  	success: function(res){
+//                  		if(res.resultCode == 'CCOM1000'){
+//                  			// 获取通讯信息
+//                  			// 获取通讯信息成功后执行以下操作
+//                  			$('#progress_item4').attr('src', '../images/imgs/4yes.png');
+//								$('.form4').addClass('hidden');
+//								$('.form5').removeClass('hidden');
+//								Object.assign(form, {
+//									telephone: $('.telephone').val(),
+//									servicePassword: $('.servicePassword').val()
+//								})
+//                  		}
+//                  	}
+//                  });
+				});
+				// 芝麻认证
+				mui('body').on('tap', '.form5_btn', function() {
+					$('#progress_item5').attr('src', '../images/imgs/5yes.png');
+					$('.form5').addClass('hidden');
+					$('.form6').removeClass('hidden');
+					Object.assign(form, { })
+					
+					// 1、授信
+//                  POST({
+//                  	url: 'https://credit.baiqishi.com/clclient/zm/login',
+//						dataType: 'GET',
+//                  	data: {
+//                  		partnerId: 'lyjc',
+//                  		name: form.customerName,
+//                  		certNo: form.idCard,
+//                  		mobile: form.telephone,
+//                  	},
+//                  	success: function(res){
+//                  		if(res.resultCode == 'CCOM1000'){
+//                  			// 获取通讯信息
+//                  			// 获取通讯信息成功后执行以下操作
+//                  			$('#progress_item4').attr('src', '../images/imgs/4yes.png');
+//								$('.form4').addClass('hidden');
+//								$('.form5').removeClass('hidden');
+//								Object.assign(form, {
+//									telephone: $('.telephone').val(),
+//									servicePassword: $('.servicePassword').val()
+//								})
+//                  		}
+//                  	}
+//                  });
+				});
+				// 淘宝认证
+				mui('body').on('tap', '.form6_btn', function() {
+					$('#progress_item6').attr('src', '../images/imgs/6yes.png');
+					$('.form6').addClass('hidden');
+					Object.assign(form, { })
+				});
+			});
+		})();
+		
+		// 拍照添加文件
+        function appendByCamera(){
+            plus.camera.getCamera().captureImage(function(e){
+                plus.io.resolveLocalFileSystemURL(e, function(entry) {
+                    var path = entry.toLocalURL();
+                    upload(path);
+                }, function(e) {
+                    mui.toast("读取拍照文件错误：" + e.message);
+                });
+            });   
+        }
+        // 从相册添加文件
+        function appendByGallery(){
+            plus.gallery.pick(function(path){
+                $(".photo" + photoIdx).src = path;
+                upload(path);
+            });
+        }
+        // 上传照片
+        function upload(file){
+            var wt = plus.nativeUI.showWaiting();
+            var task = plus.uploader.createUpload(CONF.reqUrl() + '/uploadFile',
+                { method:"POST" },
+                function(t,status){ //上传完成
+                    if(status==200){
+                        wt.close();
+                    	var res = JSON.parse(t.responseText);
+                    	if(res.code == 0){
+                    		$(".photo" + photoIdx).attr('src', res.data.src);
+                        	form1Photos[photoIdx] = res.data.src;
+                    	}else{
+                    		alert("上传失败");
+                    	}
+                    }else{
+                        wt.close();
+                        alert("上传失败："+status);
+                    }
+                }
+            );
+            task.addFile(file, { key: "img" });
+            task.start();
+        }
+        // 获取通讯录
+		function getAddressList(success){
+			plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function(addressbook) {
+                addressbook.find(["displayName", "phoneNumbers"], function(res) {
+					contacts = res;
+					success();
+                }, function() {
+                    mui.alert('获取通讯录失败 ,重新获取', '提示', '确定', getAddressList);
+                    return;
+                }, {
+                    multiple: true
+                });
+            }, function(e) {
+                mui.alert('获取通讯录失败 ,重新获取', '提示', '确定', getAddressList);
+                return;
+            });
+		}
+		// 提交通讯录信息
+		function submitAddrlist(id){
+			var list = [], k = 0;
+			for (k in contacts) {
+				var contact = contacts[k];
+				var phoneNumbers = contact.phoneNumbers
+				for (var k1 in phoneNumbers) {
+					var item = {
+						customerId: id,
+						bookName: contact.displayName,
+						bookPhone: phoneNumbers[k1].value,
+						bookTimes: 10
+					}
+					list.push(item)
+				}
+			}
+			POST({
+				url: '/addphoneBook',
+				data: { data: JSON.stringify(list) },
+				success: function(res){}
+			})
+		}
+		
+		function submitForm(){
+			if(mui.os.ios){
+				form.sign = 2;
+ 			}else if(mui.os.android){
+ 				form.sign = 1;
+ 			}
+			form.creditScore = '';
+			form.isTaobao = 0;
+			POST({
+				url: '/insert/Customer',
+				data: form,
+				success: function(res){
+					if(res.code == 0){
+						mui.alert(res.data.msg || '操作成功');
+						var userInfo = JSON.parse(plus.storage.getItem('userInfo'))
+						userInfo.id = res.data.customerId;
+						plus.storage.setItem('userInfo', JSON.stringify(userInfo))
+						submitAddrlist(res.data.customerId);
+						mui.back();
+					}
+				}
+			})
+		}
+	</script>
+</body>
+</html>
