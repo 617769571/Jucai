@@ -35,12 +35,20 @@
 			mui.init({
 				keyEventBind: {
 					backbutton: false  //关闭back按键监听
+				},
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+					var list = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+					mui.fire(list, 'pageflowrefresh');
+					//返回true,继续页面关闭逻辑
+					return true;
 				}
 			});
 			mui.plusReady(function() {
 				mui('body').on('tap', '.amount', function() {
 					for (var i in $('.amount')) {
-						$(.amount).eq(i).removeClass('amount_selected');
+						$('.amount').eq(i).removeClass('amount_selected');
 					}
 					$(this).addClass('amount_selected');
 					idx = this.getAttribute('data-index');
@@ -59,7 +67,12 @@
 						},
 						success: function(res){
 							if(res.code == 0){
+								var list = plus.webview.currentWebview().opener();
+						　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+								mui.alert(res.data, function(){})
+								mui.fire(list, 'pageflowrefresh');
 								mui.back();
+
 							}
 						}
 					})

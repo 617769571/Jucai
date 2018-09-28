@@ -1,10 +1,9 @@
 #container{
-	background-color: #fff;
 }
 .title{
 	font-weight: bold;
 }
-.box1{
+/* .box1{
 	padding: 20px;
 	border-bottom: 1px solid #eee;
 	line-height: 1;
@@ -23,4 +22,67 @@
 }
 .box2 > .item > .sub_item{
 	padding: 10px 0 10px 20px ;
+} */
+.bg-green{
+	background: #57DD43;
+}
+.bg-red{
+	background: #e83333;
+}
+.bg-gray{
+	background: #82939f;
+}
+.loan-list-box{
+	padding: 5px 0;
+	overflow: hidden;
+	position: relative;
+}
+.loan-list{
+	background-color: #fff;
+	margin-bottom: 5px;
+	box-sizing: border-box;
+	padding: 0 100px 0 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	height: 100px;
+	position: relative;
+}
+.loan-money-date{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+}
+.loan-list-box-before {
+    content: "";
+    display: block;
+    border-radius: 5px 5px 0px 0px;
+    width: 30px;
+    height: 5px;
+    position: absolute;
+    right: 100px;
+	background: #4D6530;
+	top: 0;
+}
+.loan-list-ribbon {
+    display: inline-block;
+    text-align: center;
+    width: 160px;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 12px;
+    right: -34px;
+    z-index: 2;
+    overflow: hidden;
+    transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    /* border: 1px dashed; */
+    /* box-shadow: 0 0 0 3px #57DD43, 0px 21px 5px -18px rgba(0,0,0,0.6); */
+	
+	color: #fff;
 }

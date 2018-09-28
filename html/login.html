@@ -44,6 +44,14 @@
 				mui.init({
 					keyEventBind: {
 						backbutton: false  //关闭back按键监听
+					},
+					beforeback: function() {
+				　　　　 //获得父页面的webview
+						var list = plus.webview.currentWebview().opener();
+				　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(list, 'pageflowrefresh');
+						//返回true,继续页面关闭逻辑
+						return true;
 					}
 				});
 				mui.plusReady(function() {
@@ -68,6 +76,8 @@
 									id: res.data.customerId || 0,
 									username: $('#telephone').val()
 								}))
+								var list = plus.webview.currentWebview().opener();
+								mui.fire(list, 'pageflowrefresh');
 								plus.webview.getLaunchWebview().show();
 								plus.webview.getLaunchWebview().reload();
 							}

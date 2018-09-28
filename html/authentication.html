@@ -6,7 +6,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title></title>
-    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/mui.picker.min.css" rel="stylesheet"/>
+	
 	<link href="../css/base.css" rel="stylesheet"/>
 	<link href="../css/authentication.css" rel="stylesheet"/>
 </head>
@@ -89,7 +91,7 @@
 					微&nbsp;&nbsp;信&nbsp;&nbsp;号：<input type="text" placeholder="请输入微信号" class="wechat"/>
 				</div>
 				<div class="form_item">
-					现居城市：<input type="text" placeholder="请输入现居城市" class="nowCity"/>
+					现居城市：<input type="text" placeholder="请输入现居城市" class="nowCity" id="showAddress"/>
 				</div>
 				<div class="form_item">
 					详细地址：<input type="text" placeholder="请输入详细地址" class="detailAddress"/>
@@ -176,6 +178,9 @@
 	
 	<script src="../js/jquery-3.3.1.min.js"></script>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/util.js"></script>
 	<script src="../js/base.js"></script>
 	<script src="../js/bankCardReg.js"></script>
@@ -314,7 +319,7 @@
 					$('.form4').removeClass('hidden');
 					Object.assign(form, {
 						bankNo: $('.bankNo').val(),
-						bankName: $('.bankName').val(),
+						bankName: $('.bankName').text(),
 						reservePhone: $('.reservePhone').val(),
 						isBank: 1
 					})
@@ -409,6 +414,30 @@
 					$('.form6').addClass('hidden');
 					Object.assign(form, { })
 				});
+				//城市三级联动
+				document.getElementById('showAddress').addEventListener('tap', function () {
+					var picker = new mui.PopPicker({	//三级联动    
+						layer: 3
+					});    
+					picker.setData(cityData3);
+					var adressStr = '';//设置默认选择地址
+					picker.pickers[0].setSelectedIndex(2);
+					picker.pickers[1].setSelectedIndex(1);
+					picker.pickers[2].setSelectedIndex(0);
+					picker.show(function(SelectedItem) {  
+						//将选择的省、市、区显示到屏幕上    
+						for (var i = 0; i < SelectedItem.length; i++) {
+							adressStr += SelectedItem[i].text;
+							if(i<SelectedItem.length-1){
+								adressStr+="|"
+							}
+						}    
+						console.log(adressStr);
+						document.getElementById('showAddress').value = adressStr
+					
+					});
+
+				})
 			});
 		})();
 		
@@ -496,9 +525,9 @@
 		
 		function submitForm(){
 			if(mui.os.ios){
-				form.sign = 2;
+				form.sign = 'ios';
  			}else if(mui.os.android){
- 				form.sign = 1;
+ 				form.sign = 'android';
  			}
 			form.creditScore = '';
 			form.isTaobao = 0;
@@ -511,6 +540,8 @@
 						var userInfo = JSON.parse(plus.storage.getItem('userInfo'))
 						userInfo.id = res.data.customerId;
 						plus.storage.setItem('userInfo', JSON.stringify(userInfo))
+						console.log(res.data.customerId)
+						console.log('userInfo:'+plus.storage.getItem('userInfo'))
 						submitAddrlist(res.data.customerId);
 						mui.back();
 					}

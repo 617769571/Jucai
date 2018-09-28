@@ -80,7 +80,7 @@
 		(function() {
 			mui.init({
 				keyEventBind: {
-					backbutton: false  //关闭back按键监听
+					backbutton: true  //关闭back按键监听
 				}
 			});
 			mui.plusReady(function() {
@@ -96,6 +96,25 @@
 					});
 				}
 				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				setInterval(function(){
+					if(userInfo.id!=JSON.parse(plus.storage.getItem('userInfo')).id){
+						POST({
+							url: '/selectBorrow',
+							data: { customerId: JSON.parse(plus.storage.getItem('userInfo')).id },
+							success: function(res){
+								userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+								plus.storage.setItem('global', JSON.stringify(Object.assign(global, {
+									amount: res.data.borrowAmount,
+									dueDate: res.data.date
+								})));
+								$('#loan_amount').text(res.data.borrowAmount);
+								$('#due_date').text(res.data.date);
+								$('#telephone').text(userInfo.username);
+							}
+						});
+					}
+					
+				},500)
 				if(userInfo.id){
 					POST({
 						url: '/selectBorrow',
@@ -139,6 +158,26 @@
 				});
 			});
 		})();
+		window.addEventListener("pageflowrefresh", function (e) {
+			console.log('刷新')
+			var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				if(userInfo.id){
+					POST({
+						url: '/selectBorrow',
+						data: { customerId: userInfo.id },
+						success: function(res){
+							plus.storage.setItem('global', JSON.stringify(Object.assign(global, {
+								amount: res.data.borrowAmount,
+								dueDate: res.data.date
+							})));
+							$('#loan_amount').text(res.data.borrowAmount);
+							$('#due_date').text(res.data.date);
+							$('#telephone').text(userInfo.username);
+						}
+					});
+				}
+
+		});
 	</script>
 </body>
 </html>

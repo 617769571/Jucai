@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/base.css" rel="stylesheet"/>
+	<link href="../css/loanItem.css" rel="stylesheet"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-transparent">
+		<h1 class="mui-title">借款详情</h1>
+	</header>
+
+	<div id="container" class="mui-content">
+            <div class="flex list createTime">  <div>申请时间</div><div class="createTimeValue"></div></div>
+            <div class="flex list orderNo"> <div>订单号</div><div class="orderNoValue"></div></div>
+            <div class="flex list borrowAmount">    <div>借款金额</div><div class="borrowAmountValue"></div></div>
+            <div class="flex list termDay"> <div>借款期限</div><div class="termDayValue"></div></div>
+            <div class="flex list loanTime">    <div>打款日</div><div class="loanTimeValue"></div></div>	
+            <div class="flex list repayTime">   <div>约定还款日</div><div class="repayTimeValue"></div></div>
+            <div class="flex list actualRepayTime"> <div>实际还款日</div><div class="actualRepayTimeValue"></div></div>	
+            <div class="flex list overdueFee">  <div>逾期费</div><div class="overdueFeeValue"></div></div>
+            <div class="flex list lataAmount">  <div>滞纳金</div><div class="lataAmountValue"></div></div>
+	</div>
+
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/util.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		(function() {
+			mui.init();
+			mui.plusReady(function() {
+                var userInfo = JSON.parse(plus.storage.getItem('userInfo'))
+                console.log(plus.storage.getItem('borrowInfoId'))
+              
+             
+				POST({
+                    url: '/selectBorrowDetailDTO',
+                    data: { borrowInfoId: plus.storage.getItem('borrowInfoId') },
+                    success: function(res){
+                        if(res.code == 0){
+                            $(".createTimeValue").text(res.data.createTime)
+                            $(".orderNoValue").text(res.data.orderNo)
+                            $(".borrowAmountValue").text(res.data.borrowAmount)
+                            $(".termDayValue").text(res.data.termDay)
+                            $(".loanTimeValue").text(res.data.loanTime)
+                            $(".repayTimeValue").text(res.data.repayTime)
+                            $(".actualRepayTimeValue").text(res.data.actualRepayTime)
+                            $(".overdueFeeValue").text(res.data.overdueFee)
+                            $(".lataAmountValue").text(res.data.lataAmount)
+                        }
+                    }
+                });
+			});
+		})();
+        
+	</script>
+</body>
+</html>

@@ -153,12 +153,22 @@
 			var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
 			// 操作
 			mui('body').on('tap', '.opt_item', function() {
+				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				console.log(JSON.stringify(userInfo));
+
 				var idx = this.getAttribute('data-index');
 				if(idx == 1){
 					mui.alert('请联系客服还款！', '温馨提示', function() {});
 				}else if(idx == 3){
-					mui.openWindow('html/authentication.html')
+					if(userInfo.id && userInfo.id!='0'){
+						mui.alert('您已完成认证，无需再次认证！', '温馨提示', function() {});
+					}else{
+						mui.openWindow('html/authentication.html')
+					}
 				}else{
+					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+
+					console.log(userInfo.id);
 					POST({
 						url: '/canBorrow',
 						data: { customerId: userInfo.id || 0 },
@@ -207,6 +217,25 @@
 				});
 			}
 		}
+		window.addEventListener("pageflowrefresh", function (e) {
+			console.log('刷新');
+			var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+
+			POST({
+					url: '/selectBorrow',
+					data: { customerId: userInfo.id },
+					success: function(res){
+						$('#amount').html(res.data.borrowAmount);
+						$('#due_date').html(res.data.date);
+						var global = JSON.parse(plus.storage.getItem('global')) || {};
+						plus.storage.setItem('global', JSON.stringify(Object.assign(global, {
+							amount: res.data.borrowAmount,
+							dueDate: res.data.date
+						})));
+					}
+				});
+
+		});
 	</script>
 </body>
 </html>
