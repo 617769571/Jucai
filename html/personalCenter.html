@@ -80,7 +80,7 @@
 		(function() {
 			mui.init({
 				keyEventBind: {
-					backbutton: true  //关闭back按键监听
+					backbutton: false  //关闭back按键监听
 				}
 			});
 			mui.plusReady(function() {
@@ -115,7 +115,7 @@
 					}
 					
 				},500)
-				if(userInfo.id){
+				
 					POST({
 						url: '/selectBorrow',
 						data: { customerId: userInfo.id },
@@ -126,7 +126,7 @@
 							})));
 						}
 					});
-				}
+				
 				$('#loan_amount').text(global.amount);
 				$('#due_date').text(global.dueDate);
 				$('#telephone').text(userInfo.username);

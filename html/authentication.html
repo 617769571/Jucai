@@ -444,6 +444,7 @@
 		// 拍照添加文件
         function appendByCamera(){
             plus.camera.getCamera().captureImage(function(e){
+				console.log('333');
                 plus.io.resolveLocalFileSystemURL(e, function(entry) {
                     var path = entry.toLocalURL();
                     upload(path);
