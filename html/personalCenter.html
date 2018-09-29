@@ -107,9 +107,12 @@
 									amount: res.data.borrowAmount,
 									dueDate: res.data.date
 								})));
-								$('#loan_amount').text(res.data.borrowAmount);
-								$('#due_date').text(res.data.date);
-								$('#telephone').text(userInfo.username);
+								if(res.code==0){
+									$('#loan_amount').text(res.data.borrowAmount);
+									$('#due_date').text(res.data.date);
+									$('#telephone').text(userInfo.username);
+
+								}
 							}
 						});
 					}
