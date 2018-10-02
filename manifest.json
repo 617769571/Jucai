@@ -257,7 +257,7 @@
                         "spotlight@2x" : "unpackage/res/icons/80x80.png",
                         "notification@2x" : "unpackage/res/icons/40x40.png"
                     },
-                    "appstore" : "unpackage/res/icons/1024x1024.png"
+                    "appstore" : "C:/Users/61776/Desktop/1538367337092-0b9be523-2c5a-4df0-b456-e88d558c3d45.png"
                 },
                 "android" : {
                     "mdpi" : "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
@@ -392,11 +392,9 @@
                 "refer" : [ "html/editPassword.html", "html/login.html" ],
                 "priority" : 0
             },
-            "html/loanRecord.html":{
+            "html/loanRecord.html" : {
                 "resources" : [ "js/base.js", "js/util.js", "js/mui.min.js", "js/jquery-3.3.1.min.js" ],
-                "refer" : [
-                    "html/loanItem.html"
-                ],
+                "refer" : [ "html/loanItem.html" ],
                 "priority" : 0
             }
         },

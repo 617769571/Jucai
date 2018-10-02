@@ -18,7 +18,9 @@
 	<div id="container" class="mui-content">
             <div class="flex list createTime">  <div>申请时间</div><div class="createTimeValue"></div></div>
             <div class="flex list orderNo"> <div>订单号</div><div class="orderNoValue"></div></div>
+            <div class="flex list borrowAmount">    <div>借款金额</div><div class="handlingFee"></div></div>
             <div class="flex list borrowAmount">    <div>借款金额</div><div class="borrowAmountValue"></div></div>
+
             <div class="flex list termDay"> <div>借款期限</div><div class="termDayValue"></div></div>
             <div class="flex list loanTime">    <div>打款日</div><div class="loanTimeValue"></div></div>	
             <div class="flex list repayTime">   <div>约定还款日</div><div class="repayTimeValue"></div></div>
@@ -46,7 +48,10 @@
                         if(res.code == 0){
                             $(".createTimeValue").text(res.data.createTime)
                             $(".orderNoValue").text(res.data.orderNo)
+                            
                             $(".borrowAmountValue").text(res.data.borrowAmount)
+                            $(".handlingFee").text(res.data.handlingFee)
+
                             $(".termDayValue").text(res.data.termDay)
                             $(".loanTimeValue").text(res.data.loanTime)
                             $(".repayTimeValue").text(res.data.repayTime)

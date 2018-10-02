@@ -13,15 +13,53 @@
 <body>
 	<header id="header" class="mui-bar mui-bar-transparent">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title">借款</h1>
+		<h1 class="mui-title">借款确认</h1>
 	</header>
 
 	<div id="container" class="mui-content">
-		<div class="amount fl" data-index="0">800</div>
-		<div class="amount fl" data-index="1">1000</div>
-		<div class="amount fl" data-index="2">1200</div>
-		<div class="amount fl" data-index="3">1500</div>
-		<div class="amount fl" data-index="4">2000</div>
+		<div class="loan-list j-c-s-b flex">
+			<div class="weight">借款金额</div>
+			<div class="nowarp flex j-c-f-e" style="    width: calc(100% - 70px);">
+				<input class="borrowAmount" type="number" value="800" onblur="changeBorrow()" placeholder="请输入借款金额" maxlength="6"/>
+				<span>元</span>
+			</div>
+		</div>
+		<div class="loan-list j-c-s-b flex">
+			<div class="weight">借款期限</div>
+			<div class="termDay">
+				天
+			</div>
+		</div>
+		<div class="loan-list j-c-s-b flex" style="margin-bottom: 5px;">
+			<div class="weight">手续费用</div>
+			<div class="handlingFee">
+				元
+			</div>
+		</div>
+		<div class="loan-list j-c-s-b flex">
+			<div class="weight">到账金额</div>
+			<div class="getAmount">
+				元
+			</div>
+		</div>
+		<div class="loan-list j-c-s-b flex">
+			<div class="weight">到账银行</div>
+			<div class="bankName">
+				
+			</div>
+		</div>
+		<div class="loan-list j-c-s-b flex">
+			<div class="weight">银行卡号</div>
+			<div class="bankNo">
+				
+			</div>
+		</div>
+		<div class="pd-10">
+			您需要7天后，还款<span class="borrowSpan">800</span>元
+		</div>
+		<div class="pd-10">
+			<input type="checkbox" class="agree">&nbsp;我同意
+		</div>
 		<div class="submit">确定</div>
 	</div>
 	
@@ -31,6 +69,14 @@
 	<script src="../js/base.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var idx = -1;
+		var handlingRate = 30;
+		function changeBorrow(){
+			var handlingFee = Math.floor(Number($('.borrowAmount').val())*handlingRate)/100
+			$('.handlingFee').text(handlingFee+'元');
+			$('.getAmount').text((Number($('.borrowAmount').val())-handlingFee)+'元')
+			$('.borrowSpan').text($('.borrowAmount').val());
+
+		}
 		(function() {
 			mui.init({
 				keyEventBind: {
@@ -46,33 +92,58 @@
 				}
 			});
 			mui.plusReady(function() {
-				mui('body').on('tap', '.amount', function() {
-					for (var i in $('.amount')) {
-						$('.amount').eq(i).removeClass('amount_selected');
-					}
-					$(this).addClass('amount_selected');
-					idx = this.getAttribute('data-index');
-				});
+				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+				POST({
+						url: '/getBorrowAmount',
+						data: {
+							customerId: userInfo.id
+						},
+						success: function(res){
+							if(res.code == 0){
+								$(".termDay").text(res.data.termDay+"天")
+							
+								$(".bankNo").text(res.data.bankNo);
+								$(".bankName").text(res.data.bankName);
+								handlingRate = res.data.handlingRate;
+								var handlingFee = Math.floor(Number($('.borrowAmount').val())*handlingRate)/100
+								$('.handlingFee').text(handlingFee+'元');
+								$('.getAmount').text((Number($('.borrowAmount').val())-handlingFee)+'元')
+
+							
+							}else{
+								mui.alert(res.data, function(){})
+							}
+						}
+					})
+				
 				mui('body').on('tap', '.submit', function() {
-					if(idx == -1){
-						mui.alert('请选择金额', '温馨提示', function(){})
+					if(!$('.agree')[0].checked){
+						mui.alert('请选择同意借款', '温馨提示', function(){})
 						return;
 					}
+					// try{
+					// 	Number($('.borrowAmount').val());
+					// }catch(e){
+					// 	mui.alert('请输入正确的金额格式', function(){})
+					// 	return;
+					// }
 					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
 					POST({
 						url: '/appBorrowInfo',
 						data: {
 							customerId: userInfo.id,
-							borrowAmount: $('.amount').eq(idx).text()
+							borrowAmount: $('.borrowAmount').val()
 						},
 						success: function(res){
 							if(res.code == 0){
 								var list = plus.webview.currentWebview().opener();
 						　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
 								mui.alert(res.data, function(){})
-								mui.fire(list, 'pageflowrefresh');
+								// mui.fire(list, 'pageflowrefresh');
 								mui.back();
 
+							}else{
+								mui.alert(res.data, function(){})
 							}
 						}
 					})

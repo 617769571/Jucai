@@ -1,19 +1,4 @@
-.amount{
-	margin: 20px 0 0 5%;
-	padding: 10px 0;
-	border: 1px solid #859FFE;
-	border-radius: 5px;
-	background-color: #fff;
-	width: 26%;
-	line-height: 1.5;
-	text-align: center;
-	color: #859FFE;
-	font-size: 12px;
-}
-.amount_selected{
-	background-color: #859FFE;
-	color: #fff;
-}
+
 .submit{
 	position: fixed;
 	left: 10%;
@@ -26,4 +11,40 @@
 	text-align: center;
 	color: #fff;
 	font-size: 14px;
+}
+.loan-list{
+	box-sizing: border-box;
+	padding: 10px;
+	height: 60px;
+	width: 100%;
+	margin-bottom: 1px;
+	background: #fff;
+}
+.flex{
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+.j-c-s-b{
+	justify-content: space-between;
+}
+.j-c-f-e{
+	justify-content: flex-end;
+}
+.nowarp{
+	flex-wrap: nowrap;
+}
+.loan-list input{
+	width: 80%;
+	text-align: right;
+	height: 100%;
+	border: 0;
+	margin: 0;
+}
+.weight{
+	font-weight: 700;
+	width: 70px;
+}
+.pd-10{
+	padding: 10px;
 }

@@ -135,7 +135,7 @@
 				var timer = setTimeout(function(){
 					clearTimeout(timer);
 					// 判断是否已登陆
-					if(!plus.storage.getItem('userInfo')){
+					if(!plus.storage.getItem('userInfo')||plus.storage.getItem('userInfo').loading){
 						mui.openWindow('/html/login.html', 'login');
 						return;
 					}else{
@@ -158,7 +158,7 @@
 
 				var idx = this.getAttribute('data-index');
 				if(idx == 1){
-					mui.alert('请联系客服还款！', '温馨提示', function() {});
+					mui.alert('请联系客服还款，客服微信：mzkd01', '温馨提示', function() {});
 				}else if(idx == 3){
 					if(userInfo.id && userInfo.id!='0'){
 						mui.alert('您已完成认证，无需再次认证！', '温馨提示', function() {});
