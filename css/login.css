@@ -56,3 +56,4 @@
 .float_box .other_opt > span, .float_box .other_opt > div{
 	color: #859ffe;
 }
+.yanzhengma:disabled { background-color: #ddd; }

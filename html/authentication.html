@@ -149,8 +149,8 @@
 		<!--芝麻认证-->
 		<div class="form5 hidden">
 			<div class="form_info">
-				<input type="number" class="telephone"/>
-				<input type="password" placeholder="请输入服务密码" class="servicePassword"/>
+				<input type="text" class="alipayAccount" placeholder="请输入支付宝账户"/>
+				<input type="number" placeholder="请输入芝麻信用分" class="creditScore"/>
 				<div class="form_item">
 					<input type="checkbox" class="protocol" checked="checked" />同意《用户使用协议》
 				</div>
@@ -346,7 +346,6 @@
 							servicePassword: $('.servicePassword').val(),
 							isPhone: 0
 						})
-						submitForm();
 					});
 					
 //					mui.openWindow('https://credit.baiqishi.com/clclient/zm/login?partnerId=lyjc&skip=false&name=' + form.customerName + '&certNo=' + form.idCard + '&mobile=' + form.telephone)
@@ -378,10 +377,22 @@
 				});
 				// 芝麻认证
 				mui('body').on('tap', '.form5_btn', function() {
+					
+					if(!$('.alipayAccount').val()){
+						mui.alert('请输入支付宝账户！');
+						return;
+					}
+					if(!$('.creditScore').val()){
+						mui.alert('请输入芝麻信用分！');
+						return;
+					}
 					$('#progress_item5').attr('src', '../images/imgs/5yes.png');
 					$('.form5').addClass('hidden');
 					$('.form6').removeClass('hidden');
-					Object.assign(form, { })
+					Object.assign(form, {
+						creditScore: $('.creditScore').val(),
+						alipayAccount: $('.alipayAccount').val()
+					})
 					
 					// 1、授信
 //                  POST({
@@ -407,6 +418,8 @@
 //                  		}
 //                  	}
 //                  });
+					submitForm();
+
 				});
 				// 淘宝认证
 				mui('body').on('tap', '.form6_btn', function() {

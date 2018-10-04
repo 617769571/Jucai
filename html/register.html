@@ -27,6 +27,10 @@
 					</div>
 					<input type="text" id="password" placeholder="请输入密码"/>
 				</div>
+				<div class="item" style="display: flex;flex-wrap: nowrap;align-content: center;align-items: center;justify-content: space-between;padding: 0;height: 56px;">
+					<input type="text" id="code" placeholder="请输入验证码" style="margin: 0;"/>
+					<button type="button" class="yanzhengma">发送验证码</button>
+				</div>
 				<div id="submit">注册</div>
 				<div class="other_opt">
 					已有账号？<span id="login">立即登录</span>
@@ -46,6 +50,40 @@
 					}
 				});
 				mui.plusReady(function() {
+					var times = 60;
+					function roof(){
+						if(times == 0){
+							$('.yanzhengma').text('发送验证码('+times+'s)');
+							$('.yanzhengma').prop('disabled',false);
+							$('.yanzhengma').text('发送验证码');
+							times = 60;
+							return
+						}
+						$('.yanzhengma').text('发送验证码('+times+'s)');
+						times--;
+
+						setTimeout(roof,1000);
+					}
+					
+					mui('body').on('tap', '.yanzhengma', function() {
+						if(!$('#telephone').val() || !REG.CellPhone($('#telephone').val())){
+							mui.alert('请输入正确格式的手机号', '温馨提示', function() {});
+							return;
+						}
+						$('.yanzhengma').prop('disabled',true);
+						roof();
+						POST({ 
+							url: "/sendCode", 
+							data: {
+								telephone: $('#telephone').val()
+							},
+							success: function(res){
+								if(res.code){									
+								}
+							}
+						});
+					})
+
 					mui('body').on('tap', '#submit', function() {
 						if(!$('#telephone').val() || !REG.CellPhone($('#telephone').val())){
 							mui.alert('请输入正确格式的手机号', '温馨提示', function() {});
@@ -55,19 +93,31 @@
 							mui.alert('请输入密码', '温馨提示', function() {});
 							return;
 						}
+						if(!$('#code').val()){
+							mui.alert('请输入验证码', '温馨提示', function() {});
+							return;
+						}
 						POST({ 
 							url: "/insertUser",
 							data: {
 								username: $('#telephone').val(),
-								password: $('#password').val()
+								password: $('#password').val(),
+								code:$('#code').val()
 							},
 							success: function(res){
-								plus.storage.setItem('userInfo', JSON.stringify({
-									id: 0,
-									username: $('#telephone').val()
-								}))
-								plus.webview.getLaunchWebview().show();
-								plus.webview.getLaunchWebview().reload();
+								console.log(JSON.stringify(res))
+								if(res.code==0){
+									plus.storage.setItem('userInfo', JSON.stringify({
+										id: 0,
+										username: $('#telephone').val()
+									}))
+									plus.webview.getLaunchWebview().show();
+									plus.webview.getLaunchWebview().reload();
+								}else{
+									mui.alert(res.data, function() {});
+
+								}
+								
 							}
 						});
 					})
