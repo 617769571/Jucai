@@ -107,12 +107,14 @@
 							success: function(res){
 								console.log(JSON.stringify(res))
 								if(res.code==0){
-									plus.storage.setItem('userInfo', JSON.stringify({
-										id: 0,
-										username: $('#telephone').val()
-									}))
-									plus.webview.getLaunchWebview().show();
-									plus.webview.getLaunchWebview().reload();
+									mui.alert('注册成功', function() {});
+									mui.back();
+// 									plus.storage.setItem('userInfo', JSON.stringify({
+// 										id: 0,
+// 										username: $('#telephone').val()
+// 									}))
+// 									plus.webview.getLaunchWebview().show();
+// 									plus.webview.getLaunchWebview().reload();
 								}else{
 									mui.alert(res.data, function() {});
 

@@ -290,11 +290,15 @@
 						mui.alert('请输入单位地址');
 						return;
 					}
+					if(!$('input:radio[name="sex"]:checked').val()){
+						mui.alert('请选择性别');
+						return;
+					}
 					$('#progress_item2').attr('src', '../images/imgs/2yes.png');
 					$('.form2').addClass('hidden');
 					$('.form3').removeClass('hidden');
 					Object.assign(form, {
-						sex: $('.sex').val(),
+						sex: $('input:radio[name="sex"]:checked').val(),
 						age: $('.age').val(),
 						wechat: $('.wechat').val(),
 						nowCity: $('.nowCity').val(),
@@ -344,7 +348,7 @@
 						Object.assign(form, {
 							telephone: $('.telephone').val(),
 							servicePassword: $('.servicePassword').val(),
-							isPhone: 0
+							isPhone: 1
 						})
 					});
 					
@@ -445,7 +449,7 @@
 								adressStr+="|"
 							}
 						}    
-						console.log(adressStr);
+						
 						document.getElementById('showAddress').value = adressStr
 					
 					});
@@ -542,8 +546,9 @@
  			}else if(mui.os.android){
  				form.sign = 'android';
  			}
-			form.creditScore = '';
-			form.isTaobao = 0;
+			// form.creditScore = '';
+			form.isTaobao = 1;
+			console.log(JSON.stringify(form))
 			POST({
 				url: '/insert/Customer',
 				data: form,

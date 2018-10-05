@@ -121,18 +121,14 @@
 						mui.alert('请选择同意借款', '温馨提示', function(){})
 						return;
 					}
-					try{
+					
 						
-						if(Number($('.borrowAmount').val())>=800){
+						if(Number($('.borrowAmount').val())>800){
 							mui.alert('您的借款额度已达上限', function(){})
-
+							return;
 						}
-						return;
 
-					}catch(e){
-						mui.alert('请输入正确的金额格式', function(){})
-						return;
-					}
+					
 					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
 					POST({
 						url: '/appBorrowInfo',
