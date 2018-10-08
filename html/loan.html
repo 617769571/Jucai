@@ -70,6 +70,7 @@
 	<script type="text/javascript" charset="utf-8">
 		var idx = -1;
 		var handlingRate = 30;
+		var amountMax = 800;
 		function changeBorrow(){
 			var handlingFee = Math.floor(Number($('.borrowAmount').val())*handlingRate)/100
 			$('.handlingFee').text(handlingFee+'元');
@@ -108,7 +109,7 @@
 								var handlingFee = Math.floor(Number($('.borrowAmount').val())*handlingRate)/100
 								$('.handlingFee').text(handlingFee+'元');
 								$('.getAmount').text((Number($('.borrowAmount').val())-handlingFee)+'元')
-
+								amountMax = res.data.amount;
 							
 							}else{
 								mui.alert(res.data, function(){})
@@ -123,8 +124,8 @@
 					}
 					
 						
-						if(Number($('.borrowAmount').val())>800){
-							mui.alert('您的借款额度已达上限', function(){})
+						if(Number($('.borrowAmount').val())>amountMax){
+							mui.alert('额度以审批结果为准', function(){})
 							return;
 						}
 
