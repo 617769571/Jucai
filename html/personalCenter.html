@@ -97,20 +97,19 @@
 				}
 				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
 				setInterval(function(){
-					console.log(location.href);
 					if(!plus.storage.getItem('userInfo')){
 						mui.openWindow('/html/login.html', 'login');
 						plus.storage.setItem('userInfo',JSON.stringify({loading:'loading'}));
-						console.log(!plus.storage.getItem('userInfo'));
+						
 						return;
 					}
 					if(JSON.parse(plus.storage.getItem('userInfo')).id==0){
 						$('#telephone').text(JSON.parse(plus.storage.getItem('userInfo')).username);
-						console.log('133')
+				
 						return;
 					}
 					if(userInfo.id!=JSON.parse(plus.storage.getItem('userInfo')).id){
-						console.log('222')
+						
 						POST({
 							url: '/selectBorrow',
 							data: { customerId: JSON.parse(plus.storage.getItem('userInfo')).id },

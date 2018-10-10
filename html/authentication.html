@@ -199,11 +199,15 @@
 					photoIdx = this.getAttribute('data-index');
 					
                     plus.nativeUI.actionSheet({cancel:"取消", buttons:[ 
-                        {title:"拍照"}, 
+                        // {title:"拍照"}, 
                         {title:"从相册中选择"} 
                     ]}, function(e){
-                        switch(e.index){ 
-                            case 1: appendByCamera(); break; 
+                        // switch(e.index){ 
+                        //     case 1: appendByCamera(); break; 
+                        //     case 2: appendByGallery(); break;
+                        // } 
+						switch(e.index){ 
+                            case 1: appendByGallery(); break; 
                             case 2: appendByGallery(); break;
                         } 
                     });

