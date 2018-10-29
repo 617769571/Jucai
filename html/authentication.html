@@ -194,6 +194,11 @@
 			mui.init();
 			mui.plusReady(function() {
 				// 上传图片点击事件
+				var btnArray = ['我知道了'];
+                mui.confirm('认证过程中，请允许通讯录授权，否则无法完成借款。', '温馨提示', btnArray, function(e) {
+                    
+                })
+				
 				mui('body').on('tap', '.photo', function() {
 					var _that = this;
 					photoIdx = this.getAttribute('data-index');

@@ -1,6 +1,6 @@
 {
     "@platforms" : [ "android", "iPhone", "iPad" ],
-    "id" : "H5DC25B88", /*应用的标识，创建应用时自动生成，勿手动修改*/
+    "id" : "H5A7CEFB1", /*应用的标识，创建应用时自动生成，勿手动修改*/
     "name" : "每周口袋", /*应用名称，程序桌面图标名称*/
     "version" : {
         "name" : "1.0.0", /*应用版本名称*/
@@ -257,7 +257,7 @@
                         "spotlight@2x" : "unpackage/res/icons/80x80.png",
                         "notification@2x" : "unpackage/res/icons/40x40.png"
                     },
-                    "appstore" : "C:/Users/61776/Desktop/1538367337092-0b9be523-2c5a-4df0-b456-e88d558c3d45.png"
+                    "appstore" : "C:/Users/61776/Desktop/微信图片_20181024222027.png"
                 },
                 "android" : {
                     "mdpi" : "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/

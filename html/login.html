@@ -72,14 +72,20 @@
 								password: $('#password').val()
 							},
 							success: function(res){
-								plus.storage.setItem('userInfo', JSON.stringify({
-									id: res.data.customerId || 0,
-									username: $('#telephone').val()
-								}))
-								var list = plus.webview.currentWebview().opener();
-								mui.fire(list, 'pageflowrefresh');
-								plus.webview.getLaunchWebview().show();
-								plus.webview.getLaunchWebview().reload();
+								if(res.code==0){
+									plus.storage.setItem('userInfo', JSON.stringify({
+										id: res.data.customerId || 0,
+										username: $('#telephone').val()
+									}))
+									var list = plus.webview.currentWebview().opener();
+									mui.fire(list, 'pageflowrefresh');
+									plus.webview.getLaunchWebview().show();
+									plus.webview.getLaunchWebview().reload();
+								}else{
+									mui.alert(res.data, function() {});
+
+								}
+								
 							}
 						});
 					});

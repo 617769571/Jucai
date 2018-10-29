@@ -20,7 +20,7 @@
 		<div class="loan-list j-c-s-b flex">
 			<div class="weight">借款金额</div>
 			<div class="nowarp flex j-c-f-e" style="    width: calc(100% - 70px);">
-				<input class="borrowAmount" type="number" value="800" onblur="changeBorrow()" placeholder="请输入借款金额" maxlength="6"/>
+				<input class="borrowAmount" type="number"  onblur="changeBorrow()" placeholder="请输入借款金额" maxlength="6"/>
 				<span>元</span>
 			</div>
 		</div>
@@ -160,6 +160,8 @@
 								$('.handlingFee').text(handlingFee+'元');
 								$('.getAmount').text((Number($('.borrowAmount').val())-handlingFee)+'元')
 								amountMax = res.data.amount;
+								$('.borrowAmount').val(res.data.amount);
+								changeBorrow();
 							
 							}else{
 								mui.alert(res.data, function(){})
@@ -184,7 +186,7 @@
 						}
 
 					if(!purview){
-						mui.alert('读取不到手机通讯录，请手动开启通讯录读取权限', function(){})
+						mui.alert('读取不到手机通讯录，请手动开启通讯录读取权限，并重启app', function(){})
 						return;
 					}
 					var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
